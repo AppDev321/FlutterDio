@@ -13,7 +13,7 @@ class AppColor {
 
   AppColor._i();
 
-  final Color main = Color(0xFF5297F4);
+  final Color main = Color(0xFF404CCC);
   final Color primaryColor = Color(0xFF5297F4);
   final Color primaryDarkColor = Color(0xFF5297F4);
   final Color primaryLightColor = Color(0xFF5297F4);
@@ -35,8 +35,20 @@ class AppColor {
   final Color notWhite2 = Color(0xFFF6F6F6);
   final Color nearlyWhite = Color(0xFFFEFEFE);
 
+
+  final Color lightsky = Color(0xFFA6C0FF);
+  final Color whiteshade = Color(0xFFF8F9FA);
+  final Color blue = Color(0xFF497fff);
+  final Color lightblueshade = Color(0xFF758CC8);
+  final Color grayshade = Color(0xFFEBEBEB);
+  final Color lightblue = Color(0xFF4B68D1);
+  final Color blackshade = Color(0xFF555555);
+  final Color hintText = Color(0xFFC7C7CD);
+
+
+
   Color hexToColor(String code) {
-    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+    return  Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 
   Color generateRandomColor() {
@@ -47,3 +59,5 @@ class AppColor {
         255, random.nextInt(255), random.nextInt(255), random.nextInt(255));
   }
 }
+
+  const Color mainAppColor = Color(0xFF404CCC);

@@ -17,4 +17,7 @@ class Strings {
   final String products = 'Products';
   final String upcoming_movies = 'Upcoming Movies';
   final String popular_movies = 'Popular Movies';
+  final String LABEL_ALREADY_ACCOUNT= "Already have an account? Login";
+  final String LABEL_NEW_ACCOUNT= "Registered as new user";
+  final String LABEL_WELCOME_MSG= "Welcome To Nroute";
 }

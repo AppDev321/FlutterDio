@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dio/src/auth/login_screen.dart';
+import 'package:flutter_dio/src/startup/startup_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
           // home: HomePage(),
           initialRoute: '/',
           getPages: [
-            GetPage(name: '/', page: () => HomePage()),
+            GetPage(name: '/', page: () => const StartupScreen()),
           ],
         );
       },
