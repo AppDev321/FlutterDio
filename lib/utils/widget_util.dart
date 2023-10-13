@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dio/utils/size_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WidgetUtil {
@@ -44,5 +45,9 @@ class WidgetUtil {
 
   static Widget verticalGreyLine1() {
     return Container(color: Colors.grey, width: 0.5);
+  }
+  static Widget normalVerticalSpace({double height = 16})
+  {
+    return  SizedBox(  height: getProportionateScreenHeight(height) );
   }
 }

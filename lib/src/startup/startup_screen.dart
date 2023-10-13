@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/res/icons_utils.dart';
 import 'package:flutter_dio/res/strings.dart';
+import 'package:flutter_dio/src/auth/login_screen.dart';
+import 'package:flutter_dio/src/auth/signup_screen.dart';
 import 'package:flutter_dio/widgets/custom_button.dart';
+import 'package:get/get.dart';
 import '../../res/app_color.dart';
 
 
@@ -25,7 +28,7 @@ class _StartupScreenState extends State<StartupScreen> {
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            color: appColor.white,
+            color: appColor.bgColor,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,14 +51,18 @@ class _StartupScreenState extends State<StartupScreen> {
                 height: 24,
               ),
               SimpleButton(
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=> const LoginScreen());
+                },
                 text: strings.LABEL_ALREADY_ACCOUNT,
               ),
               const SizedBox(
                 height: 24,
               ),
               SimpleButton(
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=>  SignUpScreen());
+                },
                 text: strings.LABEL_NEW_ACCOUNT,
                 buttonColor: appColor.lightblue,
                 isFadedStyle: true,

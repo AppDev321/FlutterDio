@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/data/common/constants.dart';
-import 'package:flutter_dio/src/profile/profile_screen.dart';
 import 'package:flutter_dio/src/widgets/item_movie_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,13 +12,14 @@ import '../../utils/my_application.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_progress_view.dart';
 
+final title = "MovieTab";
 
-class MoreTab extends StatefulWidget {
+class MovieTab extends StatefulWidget {
   @override
-  _MoreTabState createState() => _MoreTabState();
+  _MovieTabState createState() => _MovieTabState();
 }
 
-class _MoreTabState extends State<MoreTab> {
+class _MovieTabState extends State<MovieTab> {
   @override
   void initState() {
     super.initState();
@@ -33,16 +33,31 @@ class _MoreTabState extends State<MoreTab> {
         isLoading: app.appController.isLoadingIndex(2),
         progressIndicator: SpinKitWave(color: appColor.white, size: 80.w),
         child: Scaffold(
-          appBar: CustomAppBar(
-            showLeadingArrow: false,
-            centerTitle: false,
-            showTitleSpacing: true,
-            title: strings.SCREEN_MORE,
-          ),
-          body: ProfileScreen(),
+          appBar: _buildAppBar(),
+          body: _buildBody(),
         ),
       );
     });
   }
 
+  _buildAppBar() {
+    return CustomAppBar(
+      showLeadingArrow: false,
+      centerTitle: false,
+      showTitleSpacing: true,
+      title: strings.SCREEN_MORE,
+    );
+  }
+
+  Widget _buildBody() {
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.only(top: 25.h, bottom: 230.h),
+      itemCount: app.appController.popularMoviesList.length,
+      itemBuilder: (context, index) {
+        final data = app.appController.popularMoviesList[index];
+        return ItemMovieList(data);
+      },
+    );
+  }
 }

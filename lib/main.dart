@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/src/auth/login_screen.dart';
 import 'package:flutter_dio/src/startup/startup_screen.dart';
+import 'package:flutter_dio/utils/size_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,7 @@ import 'utils/theme_util.dart';
 
 void main() async {
   await initApp();
+
   runApp(const MyApp());
 }
 
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return ScreenUtilInit(
       designSize: const Size(1080, 1920),
       builder: (ctx, child) {

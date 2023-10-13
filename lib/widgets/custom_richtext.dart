@@ -7,30 +7,30 @@ class CustomRichText extends StatelessWidget {
   final String discription;
   final String text;
   final Function() onTap;
+  final double textSize;
+  final TextAlign textAlign;
   const CustomRichText(
       {Key? key,
       required this.discription,
       required this.text,
-      required this.onTap})
+      required this.onTap,
+        this.textSize = 16,
+      this.textAlign = TextAlign.start})
       : super(key: key);
 // "Don't already Have an account? "
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.149,
-          top: MediaQuery.of(context).size.height * 0.08),
-      child: Text.rich(
-        TextSpan(
-            text: discription,
-            style: const TextStyle(color: Colors.black87, fontSize: 16),
-            children: [
-              TextSpan(
-                  text: text,
-                  style:  TextStyle(color: appColor.blue, fontSize: 16),
-                  recognizer: TapGestureRecognizer()..onTap = onTap),
-            ]),
-      ),
+    return Text.rich(
+      textAlign :textAlign,
+      TextSpan(
+          text: discription,
+          style:  TextStyle(color: Colors.black87, fontSize: textSize),
+          children: [
+            TextSpan(
+                text: text,
+                style:  TextStyle(color: appColor.blue, fontSize: textSize),
+                recognizer: TapGestureRecognizer()..onTap = onTap),
+          ]),
     );
   }
 }

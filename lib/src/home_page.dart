@@ -1,8 +1,14 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dio/data/common/enums.dart';
 import 'package:flutter_dio/res/app_color.dart';
+import 'package:flutter_dio/res/icons_utils.dart';
 import 'package:flutter_dio/utils/my_application.dart';
 import 'package:flutter_dio/utils/widget_util.dart';
+import 'package:flutter_dio/widgets/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../utils/log_util.dart';
@@ -34,9 +40,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       extendBody: true,
       body: _buildBody(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFAB(),
-      bottomNavigationBar: _buildBottomBar(),
+     // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    //  floatingActionButton: _buildFAB(),
+     // bottomNavigationBar: _buildBottomBar(),
+      bottomNavigationBar: buildAnimationBottomMenu(),
     );
 
     return Obx(() {
@@ -60,7 +67,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: Icon(Icons.add, color: Colors.white),
     );
   }
+Widget buildAnimationBottomMenu()
+{
+  return  CurvedNavigationBar(
+    color: mainAppColor,
+    backgroundColor: Colors.white,
 
+    items: [
+      CurvedNavigationBarItem(
+        child: Icon(Icons.delivery_dining_outlined),
+        label: BottomMenus.Dispatch.name,
+          labelStyle: KTextStyle.textBottomMenu
+      ),
+      CurvedNavigationBarItem(
+        child: Icon(Icons.fastfood_outlined),
+        label: BottomMenus.Product.name,
+          labelStyle: KTextStyle.textBottomMenu
+      ),
+      CurvedNavigationBarItem(
+        child: Icon(Icons.account_balance_wallet),
+        label: BottomMenus.Stock.name,
+          labelStyle: KTextStyle.textBottomMenu
+      ),
+      CurvedNavigationBarItem(
+        child: Icon(Icons.unfold_more),
+        label: BottomMenus.More.name,
+          labelStyle: KTextStyle.textBottomMenu
+      ),
+
+    ],
+    onTap: (index) {
+      _openTab(index);
+    },
+  );
+}
   Widget _buildBottomBar() {
     return Obx(() {
       return Container(
@@ -68,12 +108,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         color: appColor.transparent,
         child: BottomAppBar(
           color: appColor.primaryColor,
-          shape: CircularNotchedRectangle(),
+        shape: CircularNotchedRectangle(),
+
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ItemBottomBar(
-                icon: Icons.home_outlined,
+                icon: Icons.home,
                 selected: app.appController.selectedTabIndex == 0,
                 onPressed: () {
                   _openTab(0);
@@ -121,7 +162,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         KeepAlivePage(child: HomeTab()),
         KeepAlivePage(child: Container()),
         KeepAlivePage(child: Container()),
-        KeepAlivePage(child: MovieTab()),
+        KeepAlivePage(child: MoreTab()),
       ],
     );
   }

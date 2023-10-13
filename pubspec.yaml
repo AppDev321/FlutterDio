@@ -42,7 +42,8 @@ dependencies:
   carousel_slider: any
   intl: any
   google_fonts: ^6.1.0
-
+  flutter_svg: any
+  curved_labeled_navigation_bar: any
 
 dev_dependencies:
   flutter_test:

@@ -12,6 +12,7 @@ class CustomFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextEditingController controller;
   final int maxLines;
+  final Color textColor;
 
   const CustomFormField(
       {Key? key,
@@ -22,7 +23,8 @@ class CustomFormField extends StatelessWidget {
       required this.textInputType,
       required this.textInputAction,
       required this.controller,
-      required this.maxLines})
+      required this.maxLines,
+      this.textColor = Colors.black})
       : super(key: key);
 
   @override
@@ -50,6 +52,7 @@ class CustomFormField extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: TextField(
+              style:  TextStyle(color: textColor),
               maxLines: maxLines,
               controller: controller,
               textInputAction: textInputAction,

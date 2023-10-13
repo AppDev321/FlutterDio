@@ -20,7 +20,7 @@ class AppColor {
   final Color primaryLight = Color(0xFF5297F4);
   final Color accentColor = Color(0xff39446F);
 
-  final Color bgColor = Color(0xFFEAF1FF);
+  final Color bgColor = Colors.white;
 
   final Color white = Colors.white;
   final Color black = Colors.black;
