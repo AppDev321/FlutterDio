@@ -47,7 +47,7 @@ class Constants {
   }
 
   void showSnackbar(String title, String msg) {
-    Get.snackbar(title, msg, backgroundColor: Colors.black.withOpacity(0.3));
+    Get.snackbar(title, msg, backgroundColor: Colors.black87,colorText: Colors.white );
   }
 
   void dismissSnakbar() {

@@ -10,6 +10,7 @@ import '../api/api.dart';
 import '../api/repository/base_repository.dart';
 import '../data/common/constants.dart';
 import '../models/genre_model.dart';
+import '../models/res_product.dart';
 
 final title = "AppController";
 
@@ -40,6 +41,10 @@ class AppController extends GetxController {
 
   int get favCount => _favCount.value;
 
+
+  final _productList = <Product>[].obs;
+  List<Product> get productList => _productList.value;
+
   @override
   void onInit() {
     Log.loga(title, "onInit:: >>>>>>> ");
@@ -64,19 +69,17 @@ class AppController extends GetxController {
     setLoading(true);
     try {
       final result = await ApiRepo().getProducts();
-      // Log.loga(title, "getProducts:: result >>>>> ${result!.toJson()}");
-
       setLoading(false);
       if (result != null) {
-        if (result.isSuccess) {
-          _productsList.value = result.productList ?? [];
+        if (result.status==200) {
+          _productList.value = result.data  ?? [];
         } else {
+
           constants.showSnackbar(
               "Api Error Response", "error:: ${result.message}");
         }
       }
     } catch (e) {
-      Log.loga(title, "getProducts:: e >>>>> $e");
       setLoading(false);
       constants.showSnackbar("Api Error", "error:: $e");
     }

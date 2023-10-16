@@ -44,6 +44,7 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_svg: any
   curved_labeled_navigation_bar: any
+  image_picker: any
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +60,7 @@ flutter:
 
   assets:
     - assets/icons/
-
+    - assets/images/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

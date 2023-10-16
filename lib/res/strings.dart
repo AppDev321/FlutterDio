@@ -12,14 +12,14 @@ class Strings {
   Strings._i();
 
   final String app_name = 'NRoute';
-  final String home_title = 'Home';
+
   final String special = 'Special';
   final String products = 'Products';
   final String upcoming_movies = 'Upcoming Movies';
   final String popular_movies = 'Popular Movies';
 
 
-  final String SCREEN_MORE= "More";
+
 
   final String LABEL_ALREADY_ACCOUNT= "Already have an account? Login";
   final String LABEL_NEW_ACCOUNT= "Registered as new user";
@@ -37,6 +37,13 @@ class Strings {
   final String LABEL_ORGANIZATION= "Organization";
   final String LABEL_USER_TYPE= "User Type";
 
+
+  final String LABEL_DISPATCHED_TAB = 'Dispatched List';
+  final String LABEL_PRODUCTS_TAB = 'Product List';
+  final String LABEL_STOCK_TAB = 'Stock List';
+  final String LABEL_MORE_TAB= "More";
+
+  final String LABEL_ADD_PRODUCT = "Add Product";
 
   // Form Error
   final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");

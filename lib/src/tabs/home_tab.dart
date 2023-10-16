@@ -47,7 +47,7 @@ class _HomeTabState extends State<HomeTab> {
       showLeadingArrow: false,
       centerTitle: false,
       showTitleSpacing: true,
-      title: strings.home_title,
+      title: strings.LABEL_DISPATCHED_TAB,
     );
   }
 

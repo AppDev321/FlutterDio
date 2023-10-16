@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/utils/size_config.dart';
+import 'package:flutter_dio/widgets/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WidgetUtil {
@@ -49,5 +50,20 @@ class WidgetUtil {
   static Widget normalVerticalSpace({double height = 16})
   {
     return  SizedBox(  height: getProportionateScreenHeight(height) );
+  }
+
+  static Widget normalHorizontalSpace({double width = 5})
+  {
+    return  SizedBox(  width: getProportionateScreenWidth(width) );
+  }
+
+  static Widget displayErrorView({
+    List<Widget> children = const [Text("No data found", style: TextStyle(fontSize: 16))],
+  }) {
+    return Center(
+      child: Column(
+        children: children,
+      ),
+    );
   }
 }

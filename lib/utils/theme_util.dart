@@ -3,8 +3,7 @@ import 'package:flutter_dio/res/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-TextStyle titleStyle = TextStyle(
-    color: Colors.black, fontSize: 48.sp, fontWeight: FontWeight.w600);
+TextStyle titleStyle = TextStyle(color: Colors.black, fontSize: 48.sp, fontWeight: FontWeight.w600);
 
 ThemeData appTheme = ThemeData(
   backgroundColor: appColor.bgColor,
@@ -16,7 +15,6 @@ ThemeData appTheme = ThemeData(
   primaryColor: appColor.primaryColor,
   primaryColorDark: appColor.primaryDarkColor,
   primaryColorLight: appColor.primaryLight,
-  brightness: Brightness.dark,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   buttonTheme: ButtonThemeData(buttonColor: appColor.black),
 );

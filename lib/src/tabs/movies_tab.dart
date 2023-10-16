@@ -45,7 +45,7 @@ class _MovieTabState extends State<MovieTab> {
       showLeadingArrow: false,
       centerTitle: false,
       showTitleSpacing: true,
-      title: strings.SCREEN_MORE,
+      title: strings.LABEL_MORE_TAB,
     );
   }
 

@@ -22,9 +22,12 @@ class IconUtils {
   final ic_password_lock =  "assets/icons/ic_password_lock.svg";
 
 
-  final ic_dispatch = "assets/icons/ic_dispatch.png";
+
 
   final ic_user = "assets/icons/ic_user.svg";
   final ic_help_center = "assets/icons/ic_help_center.svg";
   final ic_logout = "assets/icons/ic_logout.svg";
+
+
+  final ic_shoes = "assets/images/shoes2.png";
 }

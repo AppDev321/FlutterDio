@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/data/common/enums.dart';
 import 'package:flutter_dio/res/app_color.dart';
@@ -25,7 +26,9 @@ class _SignUpFormState extends State<SignUpForm> {
   String? userType;
   bool remember = false;
   final List<String?> errors = [];
-
+  List<String> users = [UserType.Distributor.name,UserType.Dispatcher.name,UserType.Collector.name];
+  TextEditingController userTypeController = TextEditingController();
+  FocusNode userTypeFocusNode = FocusNode();
   final List<DropdownMenuItem> userTypes = [
     DropdownMenuItem(
       value: UserType.Distributor.name,
@@ -90,6 +93,7 @@ class _SignUpFormState extends State<SignUpForm> {
           SimpleButton(
             text: strings.LABEL_CONTINUE,
             onTap: () {
+
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
@@ -267,8 +271,33 @@ class _SignUpFormState extends State<SignUpForm> {
             strings.LABEL_ORGANIZATION, strings.kOrganizationNullError));
   }
 
-  DropdownButtonFormField buildUserTypeFormField() {
-    return DropdownButtonFormField(
+   buildUserTypeFormField() {
+    return
+    TextFormField(
+      controller: userTypeController,
+          onTap: (){showUserTypeDialog();},
+          focusNode:userTypeFocusNode,
+            style: KTextStyle.textFieldHeading,
+            keyboardType: TextInputType.none,
+            onSaved: (newValue) => userType = newValue,
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                removeError(error: strings.kUserTypeNullError);
+              }
+
+            },
+            validator: (value) {
+              if (value!.isEmpty) {
+                addError(error: strings.kUserTypeNullError);
+                return "";
+              }
+              return null;
+            },
+            decoration: boxStyle(
+                strings.LABEL_USER_TYPE, strings.kUserTypeNullError));
+
+
+      DropdownButtonFormField(
       style: KTextStyle.textFieldHeading,
       icon: const Icon(Icons.keyboard_arrow_down_sharp),
       onSaved: (newValue) => userType = newValue,
@@ -304,5 +333,40 @@ class _SignUpFormState extends State<SignUpForm> {
           const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
       border: const OutlineInputBorder(),
     );
+  }
+
+  showUserTypeDialog()
+  {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context)
+        {
+         return 
+           CupertinoActionSheet(
+              title:  Text(strings.kUserTypeNullError),
+             actions: List.generate(users.length, (index) {
+               return CupertinoActionSheetAction(
+                 child:  Text(users[index],style: KTextStyle.textFieldHeading),
+                 onPressed: () {
+                   userType = users[index];
+                   userTypeController.text = users[index];
+                   userTypeFocusNode.focusInDirection(TraversalDirection.left);
+                   Navigator.pop(context);
+
+                 },
+               );
+             }),
+             cancelButton: CupertinoActionSheetAction(
+               isDefaultAction: true,
+               onPressed: () {
+                 Navigator.pop(context, 'Cancel');
+               },
+               child:  Text('Cancel',style:KTextStyle.textFieldHeading),
+             )
+          );
+        }
+    );
+
+
   }
 }

@@ -3,7 +3,9 @@ import 'package:flutter_dio/api/api_params.dart';
 import 'package:flutter_dio/models/genre_response.dart';
 import 'package:flutter_dio/models/movie_response.dart';
 import 'package:flutter_dio/models/product_response.dart';
+import 'package:flutter_dio/models/res_product.dart';
 
+import '../../data/response/base_response_model.dart';
 import '../../models/product_model.dart';
 import '../api.dart';
 import '../api_end_points.dart';
@@ -12,28 +14,26 @@ import '../api_utils.dart';
 final title = "ApiRepo";
 
 class ApiRepo {
-  Future<ProductResponse?> getProducts() async {
+
+
+
+  Future<ApiResponse?> getProducts() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      return ProductResponse.withError(
-          statusCode: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
+      return ApiResponse.withError( statusCode: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
     }
-
     String url = Api.baseUrl + ApiEndPoints.products;
-
     try {
       final response = await apiUtils.get(url: url);
 
-      if (response != null) {
-        List<ProductModel> products = List<ProductModel>.from(
-            response.data.map((x) => ProductModel.fromJson(x)));
-
-        return ProductResponse(success: true, productList: products);
+      if (response.statusCode == 200) {
+        ApiResponse<Product> apiResponse = response.data;
+        print(apiResponse);
+      } else {
+        return ApiResponse.withError(statusCode: CODE_RESPONSE_NULL, msg: "");
       }
-
-      return ProductResponse.withError(statusCode: CODE_RESPONSE_NULL, msg: "");
     } catch (e) {
-      return ProductResponse.withError(
+      return ApiResponse.withError(
           statusCode: CODE_ERROR, msg: apiUtils.handleError(e));
     }
   }

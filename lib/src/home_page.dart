@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dio/data/common/enums.dart';
 import 'package:flutter_dio/res/app_color.dart';
 import 'package:flutter_dio/res/icons_utils.dart';
+import 'package:flutter_dio/src/tabs/dispatched/tab_dispatched.dart';
+import 'package:flutter_dio/src/tabs/product/tab_product.dart';
+import 'package:flutter_dio/src/tabs/stock/tab_stock.dart';
 import 'package:flutter_dio/utils/my_application.dart';
 import 'package:flutter_dio/utils/widget_util.dart';
 import 'package:flutter_dio/widgets/text_styles.dart';
@@ -15,7 +18,7 @@ import '../utils/log_util.dart';
 import '../widgets/custom_progress_view.dart';
 import '../widgets/keep_alive_page.dart';
 import 'tabs/home_tab.dart';
-import 'tabs/movie_tab.dart';
+import 'tabs/more/more_tab.dart';
 import 'widgets/item_bottom_bar.dart';
 
 final title = "HomePage";
@@ -75,22 +78,22 @@ Widget buildAnimationBottomMenu()
 
     items: [
       CurvedNavigationBarItem(
-        child: Icon(Icons.delivery_dining_outlined),
+        child: Icon(Icons.delivery_dining_outlined,color: appColor.whiteshade,),
         label: BottomMenus.Dispatch.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
       CurvedNavigationBarItem(
-        child: Icon(Icons.fastfood_outlined),
+        child: Icon(Icons.fastfood_outlined,color: appColor.whiteshade),
         label: BottomMenus.Product.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
       CurvedNavigationBarItem(
-        child: Icon(Icons.account_balance_wallet),
+        child: Icon(Icons.account_balance_wallet,color: appColor.whiteshade),
         label: BottomMenus.Stock.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
       CurvedNavigationBarItem(
-        child: Icon(Icons.unfold_more),
+        child: Icon(Icons.unfold_more,color: appColor.whiteshade),
         label: BottomMenus.More.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
@@ -159,9 +162,9 @@ Widget buildAnimationBottomMenu()
         Log.loga(title, "onPageChanged:: index >>>>> $index");
       },
       children: [
-        KeepAlivePage(child: HomeTab()),
-        KeepAlivePage(child: Container()),
-        KeepAlivePage(child: Container()),
+        KeepAlivePage(child: DispatcherTab()),
+        KeepAlivePage(child: ProductTab()),
+        KeepAlivePage(child: StockTab()),
         KeepAlivePage(child: MoreTab()),
       ],
     );
