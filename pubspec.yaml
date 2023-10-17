@@ -45,6 +45,8 @@ dependencies:
   flutter_svg: any
   curved_labeled_navigation_bar: any
   image_picker: any
+  animations: ^2.0.8
+
 
 dev_dependencies:
   flutter_test:

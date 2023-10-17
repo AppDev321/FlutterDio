@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../res/app_color.dart';
 import '../../res/icons_utils.dart';
 import '../../res/strings.dart';
+import '../../utils/my_application.dart';
 import '../../utils/widget_util.dart';
 import '../../widgets/custom_formfield.dart';
 import '../../widgets/custom_richtext.dart';
@@ -132,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SimpleButton(
                       onTap: () {
-                        Get.to(()=>HomePage());
+
+                       app.navigationTransitionScreen(HomePage());
                       },
                       text: strings.LABEL_LOGIN,
                     ),
@@ -145,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         discription: "Don't already Have an account? ",
                         text: strings.LABEL_SIGNUP,
                         onTap: () {
-                          Get.to(() => SignUpScreen());
+                          app.navigationTransitionScreen(SignUpScreen());
                         },
                       ),
                     ),

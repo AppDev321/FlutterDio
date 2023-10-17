@@ -6,6 +6,7 @@ import 'package:flutter_dio/src/auth/signup_screen.dart';
 import 'package:flutter_dio/widgets/custom_button.dart';
 import 'package:get/get.dart';
 import '../../res/app_color.dart';
+import '../../utils/my_application.dart';
 
 
 
@@ -52,7 +53,9 @@ class _StartupScreenState extends State<StartupScreen> {
               ),
               SimpleButton(
                 onTap: () {
-                  Get.to(()=> const LoginScreen());
+
+                  app.navigationTransitionScreen(LoginScreen());
+
                 },
                 text: strings.LABEL_ALREADY_ACCOUNT,
               ),
@@ -61,7 +64,8 @@ class _StartupScreenState extends State<StartupScreen> {
               ),
               SimpleButton(
                 onTap: () {
-                  Get.to(()=>  SignUpScreen());
+
+                  app.navigationTransitionScreen(SignUpScreen());
                 },
                 text: strings.LABEL_NEW_ACCOUNT,
                 buttonColor: appColor.lightblue,

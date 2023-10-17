@@ -18,4 +18,14 @@ class MyApplication {
   AppController get appController {
     return _appController;
   }
+
+
+  void navigationTransitionScreen(dynamic page)
+  {
+    Get.to(
+        page, //next page class
+        duration: const Duration(milliseconds: 350), //duration of transitions, default 1 sec
+        transition: Transition.rightToLeft,
+    );
+  }
 }
