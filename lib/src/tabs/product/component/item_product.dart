@@ -1,103 +1,144 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio/models/res_product.dart';
 import 'package:flutter_dio/res/app_color.dart';
 import 'package:flutter_dio/res/icons_utils.dart';
+import 'package:flutter_dio/res/strings.dart';
 import 'package:flutter_dio/utils/widget_util.dart';
 import 'package:flutter_dio/widgets/custom_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../utils/my_application.dart';
 import '../../../../utils/size_config.dart';
+import '../../../../widgets/colored_label.dart';
+import '../../../cart/cart_screen.dart';
 
 
 
 class ItemProduct extends StatelessWidget {
-  final int index;
-  final Product data;
+  final Product item;
 
 
-  ItemProduct({required this.index,required this.data});
+  ItemProduct({required this.item});
 
   @override
   Widget build(BuildContext context) {
-      return Card(
-          elevation: 0,
-          color: appColor.lightblueshade.withOpacity(0.5),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+      return Stack(
+        children:[
+          Card(
+            elevation: 5,
+
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
-              Row(
-              children: [
-                SizedBox(
-                  width: 88,
-                  child: AspectRatio(
-                    aspectRatio: 0.88,
-                    child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                      decoration: BoxDecoration(
-
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Image.asset(iconUtils.ic_shoes),
-                    ),
-                  ),
-                ),
-                WidgetUtil.normalHorizontalSpace(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Test Item",
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      maxLines: 2,
-                    ),
-                    WidgetUtil.normalVerticalSpace(height: 10),
-                    Text.rich(
-                      TextSpan(
-                        text: "300 Qr",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.black54),
-                      ),
-                    )
-                  ],
-                ),
-                WidgetUtil.normalVerticalSpace(),
-
-              ],
-    ),
-              WidgetUtil.normalVerticalSpace(),
-              Container(height: 1,color: mainAppColor,),
-              WidgetUtil.normalVerticalSpace(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Expanded(
+                child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.access_time_sharp,color: mainAppColor,),
-                      WidgetUtil.normalHorizontalSpace(),
-                      Text("10-10-2023")
-                    ],
+                  SizedBox(
+                    width: 100,
+                    child: AspectRatio(
+                      aspectRatio: 0.88,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Image.asset(iconUtils.ic_shoes),
+                      ),
+                    ),
                   ),
+                  WidgetUtil.normalHorizontalSpace(width: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: AutoSizeText(
+                            item.category.safeGet(),
+                            style: const TextStyle(color: Colors.black26),
+                            maxLines: 1,
+                            maxFontSize: 12,
+                            overflow: TextOverflow.ellipsis,
 
-                  Row(
-                    children: [
-                      Icon(Icons.access_time_sharp,color: mainAppColor,),
-                      WidgetUtil.normalHorizontalSpace(),
-                      Text("10-10-2023")
-                    ],
-                  )
+                          ),
+                        ),
+                        WidgetUtil.normalVerticalSpace(height: 5),
+                        SizedBox(
+                          width: 200,
+                          child: AutoSizeText(
+                          item.name.safeGet(),
+                            style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,),
+                            maxLines: 1,
+                            maxFontSize: 14,
+                            minFontSize: 12,
+                            overflow: TextOverflow.ellipsis,
+
+                          ),
+                        ),
+                        WidgetUtil.normalVerticalSpace(height: 5),
+                        Text(item.isActive ==true? "Active":"Not Available",textAlign: TextAlign.center,style:TextStyle(fontSize: 35.sp,color: item.isActive ==true? Colors.green:Colors.red) ,),
+                        WidgetUtil.normalVerticalSpace(height: 5),
+                        RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Qty : ",
+                                style:  TextStyle(fontSize: 35.sp,),
+                              ),
+                              TextSpan(
+                                text:"${item.availableQuantity}",
+                                style:   TextStyle(  fontSize: 35.sp,),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                      ],
+                    ),
+                  ),
+                ],
+                 ),
+              ),
+              Row(
+
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20.w),
+                      alignment: Alignment.centerLeft,
+                      child: Text("\$${item.price}",
+                          style: TextStyle(
+                              color: appColor.main,
+                              fontSize: 48.sp,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      app.navigationTransitionScreen(CartScreen());
+                    },
+                    elevation: 0,
+                    minWidth: 0,
+                    color: appColor.main,
+                    padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 40.w),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(10))),
+                    child: Icon(Icons.shopping_cart_outlined, size: 45.w, color: Colors.white),
+                  ),
                 ],
               ),
-              WidgetUtil.normalVerticalSpace(),
-              SimpleButton(onTap: (){
-                showQuantityDialog(context);
-
-              }, text: "Add to Dispatch")
             ],
           ),
         ),
-      );
+
+        ]);
 
   }
 

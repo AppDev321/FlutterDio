@@ -27,7 +27,7 @@ class SimpleButton extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.05,
         margin: const EdgeInsets.only(left: 20, right: 20),
         decoration:  BoxDecoration(
-            color: isFadedStyle?buttonColor.withOpacity(0.2):buttonColor,
+            color: isFadedStyle ? buttonColor.withOpacity(0.2):buttonColor,
             borderRadius: const BorderRadius.all(Radius.circular(10))),
         child: Center(
           child: Text(

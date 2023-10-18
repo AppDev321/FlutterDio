@@ -78,13 +78,13 @@ Widget buildAnimationBottomMenu()
 
     items: [
       CurvedNavigationBarItem(
-        child: Icon(Icons.delivery_dining_outlined,color: appColor.whiteshade,),
-        label: BottomMenus.Dispatch.name,
+          child: Icon(Icons.fastfood_outlined,color: appColor.whiteshade),
+          label: BottomMenus.Product.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
       CurvedNavigationBarItem(
-        child: Icon(Icons.fastfood_outlined,color: appColor.whiteshade),
-        label: BottomMenus.Product.name,
+        child: Icon(Icons.delivery_dining_outlined,color: appColor.whiteshade,),
+        label: BottomMenus.Dispatch.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
       CurvedNavigationBarItem(
@@ -162,9 +162,9 @@ Widget buildAnimationBottomMenu()
         Log.loga(title, "onPageChanged:: index >>>>> $index");
       },
       children: [
-        KeepAlivePage(child: DispatcherTab()),
         KeepAlivePage(child: ProductTab()),
-        KeepAlivePage(child: StockTab()),
+        KeepAlivePage(child: DispatcherTab()),
+        KeepAlivePage(child: HomeTab()),
         KeepAlivePage(child: MoreTab()),
       ],
     );

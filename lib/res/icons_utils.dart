@@ -20,8 +20,8 @@ class IconUtils {
   final  twitter_icon = "assets/icons/ic_twitter.svg";
   final ic_error =   "assets/icons/ic_error.svg";
   final ic_password_lock =  "assets/icons/ic_password_lock.svg";
-
-
+  final ic_delete = "assets/icons/ic_delete.svg";
+  final ic_reciept = "assets/icons/receipt.svg";
 
 
   final ic_user = "assets/icons/ic_user.svg";

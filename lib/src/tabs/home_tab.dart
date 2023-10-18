@@ -32,6 +32,7 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     _getUpcomingMovies();
+    app.appController.getProducts2();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_dio/api/repository/api_repository.dart';
 import 'package:flutter_dio/models/movie_details_model.dart';
 import 'package:flutter_dio/models/product_model.dart';
+import 'package:flutter_dio/models/res_dispatch.dart';
 import 'package:flutter_dio/utils/log_util.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,6 @@ import '../data/common/constants.dart';
 import '../models/genre_model.dart';
 import '../models/res_product.dart';
 
-final title = "AppController";
 
 class AppController extends GetxController {
   final _selectedTabIndex = 0.obs;
@@ -45,10 +45,18 @@ class AppController extends GetxController {
   final _productList = <Product>[].obs;
   List<Product> get productList => _productList.value;
 
+  final _dispatchList = <Dispatch>[].obs;
+  List<Dispatch> get dispatchList => _dispatchList.value;
+
+
+
+
+
   @override
   void onInit() {
     Log.loga(title, "onInit:: >>>>>>> ");
-    getGenreList();
+   // getProducts();
+    getDispatchedList();
     super.onInit();
   }
 
@@ -66,15 +74,39 @@ class AppController extends GetxController {
   }
 
   void getProducts() async {
+    setLoadingIndex(0, true);
     setLoading(true);
     try {
       final result = await ApiRepo().getProducts();
       setLoading(false);
+      setLoadingIndex(0, false);
       if (result != null) {
         if (result.status==200) {
           _productList.value = result.data  ?? [];
-        } else {
 
+        } else {
+          constants.showSnackbar(
+              "Api Error Response",result.message);
+        }
+      }
+    } catch (e) {
+      setLoadingIndex(0, false);
+      setLoading(false);
+      constants.showSnackbar("Api Error", e.toString());
+    }
+  }
+
+
+  void getDispatchedList() async {
+    setLoading(true);
+    try {
+      final result = await ApiRepo().getDispatch();
+      setLoading(false);
+      if (result != null) {
+        if (result.status == 200) {
+          _dispatchList.value = result.data  ?? [];
+
+        } else {
           constants.showSnackbar(
               "Api Error Response", "error:: ${result.message}");
         }
@@ -84,6 +116,13 @@ class AppController extends GetxController {
       constants.showSnackbar("Api Error", "error:: $e");
     }
   }
+
+
+
+
+
+
+
 
   // 2nd way to get products list
   void getProducts2() async {

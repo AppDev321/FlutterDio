@@ -85,15 +85,15 @@ class _ProductTabState extends State<ProductTab> {
           padding: EdgeInsets.only(
               top: 20.w, bottom: 230.h, left: 60.w, right: 60.w),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-            crossAxisCount: 1,
+            crossAxisCount: 2,
             crossAxisSpacing: 40.w,
             mainAxisSpacing: 40.w,
-            height: 0.3.sh,
+            height: 0.34.sh,
           ),
           itemCount: app.appController.productList.length,
           itemBuilder: (context, index) {
             final data = app.appController.productList[index];
-            return ItemProduct(index: index, data: data);
+            return ItemProduct( item: data);
           },
         ):    WidgetUtil.displayErrorView();
 
