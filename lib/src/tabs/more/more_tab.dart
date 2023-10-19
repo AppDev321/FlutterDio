@@ -29,18 +29,14 @@ class _MoreTabState extends State<MoreTab> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return CustomProgressView(
-        isLoading: app.appController.isLoadingIndex(2),
-        progressIndicator: SpinKitWave(color: appColor.white, size: 80.w),
-        child: Scaffold(
-          appBar: CustomAppBar(
-            showLeadingArrow: false,
-            centerTitle: false,
-            showTitleSpacing: true,
-            title: strings.LABEL_MORE_TAB,
-          ),
-          body: ProfileScreen(),
+      return Scaffold(
+        appBar: CustomAppBar(
+          showLeadingArrow: false,
+          centerTitle: false,
+          showTitleSpacing: true,
+          title: strings.LABEL_MORE_TAB,
         ),
+        body: ProfileScreen(),
       );
     });
   }

@@ -4,7 +4,7 @@ import 'package:flutter_dio/data/response/base_response_model.dart';
 class Product {
   String? name;
   String? category;
-  double? price;
+  dynamic? price;
   String? orgId;
   String? productId;
   DateTime? creationDate;

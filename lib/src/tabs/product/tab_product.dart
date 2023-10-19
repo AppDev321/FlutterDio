@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dio/src/cart/cart_screen.dart';
 import 'package:flutter_dio/src/tabs/product/add_product_screen.dart';
 import 'package:flutter_dio/utils/size_config.dart';
 import 'package:flutter_dio/utils/sliver_grid_delegate_with_fixed_cross_axis_count_and_fixed_height.dart';
@@ -12,38 +13,40 @@ import '../../../res/app_color.dart';
 import '../../../res/strings.dart';
 import '../../../utils/my_application.dart';
 import '../../../widgets/custom_appbar.dart';
+import '../../widgets/item_bottom_bar.dart';
+import '../base_screen_widget.dart';
 import 'component/item_product.dart';
 
-class ProductTab extends StatefulWidget {
-  const ProductTab({super.key});
+
+class ProductTab extends StatelessWidget implements BaseScreenInterface {
 
   @override
-  _ProductTabState createState() => _ProductTabState();
-}
-
-class _ProductTabState extends State<ProductTab> {
+  int loadingIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
+  initState() {
 
+
+  }
+  @override
+  bottomNav() {
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
-    );
+  return BaseScreenWidget(screen: this);
   }
 
-  _buildAppBar() {
+
+  @override
+  buildAppBar() {
     return CustomAppBar(
       showLeadingArrow: false,
       centerTitle: false,
       showTitleSpacing: true,
       title: strings.LABEL_PRODUCTS_TAB,
       actionsWidget: [
+
         GestureDetector(
           onTap: (){
             Get.to(()=>AddProductScreen());
@@ -59,26 +62,33 @@ class _ProductTabState extends State<ProductTab> {
                 ]
             ),
           ),
-        )
+        ),
+        Center(
+          child: ItemBottomBar(
+            icon: Icons.shopping_cart_outlined,
+          showBadge: true,
+            badgeValue: app.appController.cartList.length,
+            onPressed: () {
+             if( app.appController.cartList.isNotEmpty)
+               {
+                 app.navigationTransitionScreen(const CartScreen());
+               }
+            },
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildBody() {
+  @override
+  buildBody() {
     return SingleChildScrollView(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, 
           children: [
         WidgetUtil.spaceVertical(40),
 
-      Obx(() {
-        if (app.appController.isLoading) {
-          return Container(
-            height: 0.5.sh,
-            child: SpinKitWave(color: appColor.main, size: 70.w),
-          );
-        }
-        return  app.appController.productList.isNotEmpty ?
+      app.appController.productList.isNotEmpty ?
           GridView.builder(
           shrinkWrap: true,
           primary: false,
@@ -95,10 +105,13 @@ class _ProductTabState extends State<ProductTab> {
             final data = app.appController.productList[index];
             return ItemProduct( item: data);
           },
-        ):    WidgetUtil.displayErrorView();
+        ):    WidgetUtil.displayErrorView()
 
-      }),
+
       ]),
     );
   }
+
+
+
 }

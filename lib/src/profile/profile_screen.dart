@@ -16,11 +16,11 @@ class ProfileScreen extends StatelessWidget {
         children: [
          // ProfilePic(),
           WidgetUtil.normalVerticalSpace(height: 20),
-          ProfileMenuButton(
+         /* ProfileMenuButton(
             text: "My Account",
             icon:iconUtils.ic_user,
             press: () => {},
-          ),
+          ),*/
           /* ProfileMenu(
             text: "Notifications",
             icon: "assets/icons/Bell.svg",

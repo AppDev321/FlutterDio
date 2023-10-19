@@ -1,17 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter_dio/api/repository/api_repository.dart';
+import 'package:flutter_dio/models/add_product_model.dart';
 import 'package:flutter_dio/models/movie_details_model.dart';
 import 'package:flutter_dio/models/product_model.dart';
 import 'package:flutter_dio/models/res_dispatch.dart';
+import 'package:flutter_dio/res/strings.dart';
 import 'package:flutter_dio/utils/log_util.dart';
 import 'package:get/get.dart';
 
 import '../api/api.dart';
 import '../api/repository/base_repository.dart';
 import '../data/common/constants.dart';
+import '../models/cart_model.dart';
 import '../models/genre_model.dart';
 import '../models/res_product.dart';
+import '../widgets/progressbutton/progress_button.dart';
 
 
 class AppController extends GetxController {
@@ -48,9 +52,15 @@ class AppController extends GetxController {
   final _dispatchList = <Dispatch>[].obs;
   List<Dispatch> get dispatchList => _dispatchList.value;
 
+  final _cartList = <CartItem>[].obs;
+  List<CartItem> get cartList => _cartList.value;
+
+  final _grandTotalPrice = 0.0.obs;
+  double get grandTotalPrice => _grandTotalPrice.value;
 
 
-
+  final _productRequestState = ButtonState.idle.obs;
+  ButtonState get getProductButtonState => _productRequestState.value;
 
   @override
   void onInit() {
@@ -97,11 +107,47 @@ class AppController extends GetxController {
   }
 
 
+
+  void addNewProducts(AddProduct product) async {
+   _productRequestState.value = ButtonState.loading;
+    setLoading(true);
+    try {
+      final result = await ApiRepo().addNewProduct(product);
+      setLoading(false);
+      if (result != null) {
+        if (result.status==200) {
+          _productRequestState.value = ButtonState.success;
+        } else {
+          _productRequestState.value = ButtonState.fail;
+          constants.showSnackbar(
+              "Api Error Response",result.message);
+        }
+
+        Future.delayed(Duration(seconds: 2));
+        _productRequestState.value = ButtonState.idle;
+      }
+    } catch (e) {
+      _productRequestState.value = ButtonState.fail;
+      setLoading(false);
+      constants.showSnackbar("Api Error", e.toString());
+
+      Future.delayed(Duration(seconds: 2));
+      _productRequestState.value = ButtonState.idle;
+    }
+   getProducts();
+
+  }
+
+
+
+
   void getDispatchedList() async {
     setLoading(true);
+    setLoadingIndex(1, true);
     try {
       final result = await ApiRepo().getDispatch();
       setLoading(false);
+      setLoadingIndex(1, false);
       if (result != null) {
         if (result.status == 200) {
           _dispatchList.value = result.data  ?? [];
@@ -112,6 +158,7 @@ class AppController extends GetxController {
         }
       }
     } catch (e) {
+      setLoadingIndex(1, false);
       setLoading(false);
       constants.showSnackbar("Api Error", "error:: $e");
     }
@@ -216,5 +263,46 @@ class AppController extends GetxController {
     } else {
       _favCount--;
     }
+  }
+
+
+  void addToCart({required Product product, required int quantity}) {
+    var existingCartItem = cartList.firstWhereOrNull(
+          (item) => item.product == product
+    );
+    if (existingCartItem != null) {
+      updateCartQuantity(existingCartItem, quantity);
+    } else {
+      _cartList.add(CartItem(product: product, numOfItem: quantity));
+    }
+    setTotalPrice();
+  }
+
+  void updateCartQuantity(CartItem cartItem,int quantity,{bool updateQuantity = false}) {
+    int index = cartList.indexOf(cartItem);
+    updateQuantity == false?  cartItem.numOfItem += quantity :  cartItem.numOfItem =  quantity;
+    _cartList[index] = cartItem;
+    setTotalPrice();
+  }
+
+  setTotalPrice()
+  {
+    double totalPrice = 0.0;
+    for (var cartItem in cartList) {
+
+     var price =   cartItem.product.price;
+
+     price = price.toDouble();
+      totalPrice += price * cartItem.numOfItem;
+    }
+    _grandTotalPrice.value = double.parse(totalPrice.toStringAsFixed(2));
+
+  }
+
+
+  deleteCartItem(CartItem item)
+  {
+    _cartList.remove(item);
+    setTotalPrice();
   }
 }

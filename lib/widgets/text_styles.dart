@@ -10,9 +10,9 @@ class KTextStyle {
 
   static var textFieldHintStyle = TextStyle(  color: appColor.hintText, fontSize: 14);
 
-  static var authButtonTextStyle = TextStyle(   fontSize: 18, color: appColor.whiteshade);
+  static var authButtonTextStyle = TextStyle( fontSize: 16, color: appColor.whiteshade,fontWeight: FontWeight.normal);
 
-  static  colorTextStyle (Color color){  return TextStyle(fontSize: 18, color: color); }
+  static  colorTextStyle (Color color){  return TextStyle(fontSize: 16, color: color,fontWeight: FontWeight.normal); }
   static var textBottomMenu =   TextStyle(color: appColor.whiteshade, fontSize: 12);
 
 

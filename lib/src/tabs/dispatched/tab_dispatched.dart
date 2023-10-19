@@ -15,8 +15,12 @@ import 'component/item_dispatched.dart';
 class DispatcherTab extends StatelessWidget implements BaseScreenInterface {
 
   @override
-  int loadingIndex = 0;
+  int loadingIndex = 1;
 
+
+  @override
+  initState() {
+  }
 
   @override
   bottomNav() {

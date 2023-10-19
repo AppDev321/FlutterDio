@@ -3,17 +3,19 @@ import 'package:flutter_dio/models/res_product.dart';
 
 import '../utils/my_application.dart';
 
-class Cart {
+class CartItem {
   final Product product;
-  final int numOfItem;
+  int _numOfItem;
 
-  Cart({required this.product, required this.numOfItem});
+  CartItem({required this.product, required int numOfItem})
+      : _numOfItem = numOfItem;
+
+  int get numOfItem => _numOfItem; // Getter to access the quantity
+  set numOfItem(int value) {
+    _numOfItem = value;
+  }
 }
 
 // Demo data for our cart
 
-List<Cart> demoCarts = [
-  Cart(product: app.appController.productList[0], numOfItem: 2),
-  Cart(product: app.appController.productList[1], numOfItem: 1),
- // Cart(product: demoProducts[3], numOfItem: 1),
-];
+

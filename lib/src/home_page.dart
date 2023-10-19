@@ -92,11 +92,11 @@ Widget buildAnimationBottomMenu()
         label: BottomMenus.Stock.name,
           labelStyle: KTextStyle.textBottomMenu
       ),
-      CurvedNavigationBarItem(
+     /* CurvedNavigationBarItem(
         child: Icon(Icons.unfold_more,color: appColor.whiteshade),
         label: BottomMenus.More.name,
           labelStyle: KTextStyle.textBottomMenu
-      ),
+      ),*/
 
     ],
     onTap: (index) {
@@ -164,7 +164,7 @@ Widget buildAnimationBottomMenu()
       children: [
         KeepAlivePage(child: ProductTab()),
         KeepAlivePage(child: DispatcherTab()),
-        KeepAlivePage(child: HomeTab()),
+        KeepAlivePage(child: StockTab()),
         KeepAlivePage(child: MoreTab()),
       ],
     );

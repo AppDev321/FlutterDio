@@ -12,6 +12,7 @@ abstract class BaseScreenInterface {
   dynamic buildAppBar();
   dynamic buildBody();
   dynamic bottomNav();
+  dynamic initState();
   int loadingIndex = 0;
 }
 
@@ -25,12 +26,19 @@ class BaseScreenWidget extends StatefulWidget {
 }
 
 class _BaseScreenWidgetState extends State<BaseScreenWidget> {
+
+  @override
+  void initState() {
+    widget.screen.initState();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return CustomProgressView(
         isLoading: app.appController.isLoadingIndex(widget.screen.loadingIndex),
-        progressIndicator:  Container(
+        progressIndicator:  SizedBox(
           height: 0.5.sh,
           child: SpinKitWave(color: appColor.whiteshade, size: 70.w),
         ),

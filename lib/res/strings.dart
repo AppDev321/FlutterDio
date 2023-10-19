@@ -75,6 +75,8 @@ class Strings {
   final String LABEL_ADDRESS= "Address";
   final String LABEL_ORGANIZATION= "Organization";
   final String LABEL_USER_TYPE= "User Type";
+  final String LABEL_CATEGORY= "Category";
+
 
 
   final String LABEL_DISPATCHED_TAB = 'Dispatched List';
@@ -98,9 +100,21 @@ class Strings {
   final String kAddressNullError = "Please enter your address";
   final String kOrganizationNullError = "Please enter your organization name";
   final String kUserTypeNullError = "Please select user type";
+  final String kQuantityNullError = "Please enter quantity";
+
+  final String KProductAddCartDialog = "Please enter details";
+
 
   final String KQuantity = "Quantity";
   final String KAdd = "Add";
   final String KCancel = "Cancel";
+  final String KDispatchOrganization = "Dispatch Organization";
 
+
+
+  final String kPNNullError = "Please Enter Product Name";
+  final String kPPNullError = "Please Enter Product Price";
+  final String kPONullError = "Please Enter Organization";
+  final String kPCNullError = "Please Enter Product Category";
+  final String kPQNullError = "Please Enter Product Quantity";
 }

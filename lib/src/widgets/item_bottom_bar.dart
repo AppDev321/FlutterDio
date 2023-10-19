@@ -34,8 +34,8 @@ class ItemBottomBar extends StatelessWidget {
           animationDuration: Duration(milliseconds: 300),
           colorChangeAnimationDuration: Duration(seconds: 1),
         ),
-        badgeStyle: const badges.BadgeStyle(badgeColor: Colors.pinkAccent),
-        showBadge: app.appController.productsList.isNotEmpty && badgeValue > 0,
+        badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
+        showBadge: badgeValue > 0,
         badgeContent: Text(
           '$badgeValue',
           style: TextStyle(fontSize: 32.sp, color: appColor.white, fontWeight: FontWeight.w700),

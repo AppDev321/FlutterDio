@@ -133,7 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SimpleButton(
                       onTap: () {
-
                        app.navigationTransitionScreen(HomePage());
                       },
                       text: strings.LABEL_LOGIN,

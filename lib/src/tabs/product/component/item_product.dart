@@ -8,6 +8,7 @@ import 'package:flutter_dio/res/strings.dart';
 import 'package:flutter_dio/utils/widget_util.dart';
 import 'package:flutter_dio/widgets/custom_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../utils/my_application.dart';
 import '../../../../utils/size_config.dart';
@@ -119,7 +120,7 @@ class ItemProduct extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      app.navigationTransitionScreen(CartScreen());
+                      showQuantityDialog(context);
                     },
                     elevation: 0,
                     minWidth: 0,
@@ -143,35 +144,45 @@ class ItemProduct extends StatelessWidget {
   }
 
   TextEditingController quantityController = TextEditingController(text: "1");
-
+  TextEditingController dispatchController = TextEditingController();
   void showQuantityDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Quantity'),
-          content: TextField(
-            controller: quantityController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: 'Enter quantity'),
+          title: Text(strings.KProductAddCartDialog),
+          content: Column(
+           mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: quantityController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: strings.KQuantity),
+              ),
+            /*  TextField(
+                controller: dispatchController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(labelText: strings.KDispatchOrganization),
+              ),*/
+            ],
           ),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Get.back();
               },
-              child: Text('Cancel'),
+              child: Text(strings.KCancel),
             ),
             TextButton(
               onPressed: () {
                 String enteredQuantity = quantityController.text;
-                if (enteredQuantity.isNotEmpty) {
-                  // TODO: Add your logic here
-                  print('Quantity added: $enteredQuantity');
+                if (enteredQuantity.isNotEmpty ) {
+                  app.appController.addToCart(product: item, quantity: int.parse(enteredQuantity));
+                 Get.back();
+                //  app.navigationTransitionScreen(const CartScreen());
                 }
-                Navigator.pop(context);
               },
-              child: Text('Add'),
+              child: Text(strings.KAdd),
             ),
           ],
         );

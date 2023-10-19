@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_dio/api/api_params.dart';
 import 'package:flutter_dio/models/genre_response.dart';
 import 'package:flutter_dio/models/movie_response.dart';
 import 'package:flutter_dio/models/res_product.dart';
 
 import '../../data/response/base_response_model.dart';
+import '../../models/add_product_model.dart';
 import '../../models/res_dispatch.dart';
 import '../api.dart';
 import '../api_end_points.dart';
@@ -73,6 +75,36 @@ class ApiRepo {
           statusCode: CODE_ERROR, msg: apiUtils.handleError(e));
     }
   }
+
+
+
+
+
+  Future<ApiResponse?> addNewProduct(AddProduct product) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      return ApiResponse.withError(
+          statusCode: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
+    }
+    String url = Api.baseUrl + ApiEndPoints.products;
+    try {
+      final response = await apiUtils.post(url: url,data: product,options:  Options(headers: apiUtils.header));
+
+      if (response.statusCode == 200) {
+          ApiResponse<List<Product>> apiResponse = ApiResponse(status: 200, message: "Success", data: []);
+          return apiResponse;
+      } else {
+        return ApiResponse.withError(statusCode: CODE_RESPONSE_NULL, msg: "");
+      }
+    } catch (e) {
+      return ApiResponse.withError(
+          statusCode: CODE_ERROR, msg: apiUtils.handleError(e));
+    }
+  }
+
+
+
+
 
 
 
